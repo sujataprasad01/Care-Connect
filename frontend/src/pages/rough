@@ -1,0 +1,14 @@
+
+
+
+// {
+//     token ? (
+//         location.pathname === '/profile' ? (
+//             <div onClick={handleLogout} className='text-customPurple rounded-md drop-shadow-[3px_3px_0px_rgba(0,0,0,0.2)] m-7 text-lg'><Link to='/login'>Logout</Link></div>
+//         ) : (
+//             <div><Link to='/profile'><img src={profileImg} className='w-16 h-16 p-2 mt-2 ml-4'></img></Link></div>)
+//     ) : (
+//         <button onClick={() => navigate('/login')}
+//             className='text-customPurple rounded-md drop-shadow-[3px_3px_0px_rgba(0,0,0,0.2)] m-7 text-lg'>Login</button>
+//     )
+// }
