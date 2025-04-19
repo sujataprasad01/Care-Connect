@@ -19,17 +19,18 @@ const App = () => {
       <Navbar></Navbar>
       <div className='flex'>
       <Sidebar></Sidebar>
-      <AddDoctor></AddDoctor>
-      </div>
+      {/* <AddDoctor></AddDoctor> */}
       
       <Routes>
         <Route path='/' element={<></>}></Route>
         <Route path='/admin-dashboard' element={<Dashboard></Dashboard>}></Route>
         <Route path='/all-appointments' element={<AllAointments></AllAointments>}></Route>
-        {/* <Route path='/add-doctor' element={<AddDoctor></AddDoctor>}></Route> */}
-        <Route path='/doctor' element={<DoctorsList></DoctorsList>}></Route>
+        <Route path='/add-doctor' element={<AddDoctor></AddDoctor>}></Route>
+        <Route path='/doctors-list' element={<DoctorsList></DoctorsList>}></Route>
       </Routes>
     </div>
+    </div>
+
   ):(
     <>
      <Login></Login>
