@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {createContext} from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import About from './pages/About'
@@ -16,10 +16,17 @@ import Gyno from './components/Gyno'
 import Neuro from './components/Neuro'
 import General from './components/General'
 import Derma from './components/Derma'
+
+import {ToastContainer, toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+export const AppContext=createContext()
+
 const App = () => {
+  // const [token, setToken] = useState(localStorage.getItem('token') || false);
   return (
     <>
     <div className='mx-2 sm:mx-[5%] bg-purple-100'>
+      <ToastContainer></ToastContainer>
       <Navabr></Navabr>
       <Routes>
         <Route path='/' element={<Home></Home>}></Route>

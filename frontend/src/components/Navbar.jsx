@@ -1,18 +1,22 @@
-import React, { useState } from 'react'
+import React, { useContext} from 'react'
 import logo from '../assets/logo.png'
 import { useLocation,  Link, useNavigate } from 'react-router-dom'
 import profileImg from '../assets/profile.png'
+import { AppContext } from '../context/AppContext'
 const Navabr = () => {
     const navigate=useNavigate();
     const location = useLocation();
-    const [showMenu, setShowMenu]=useState(false)
-    const[token, setToken]=useState(true)
-    const [logout, setLogout]=useState(false)
-    
-    const handleLogout = () => {
-        setLogout(true);
-        setToken(false);
-      };
+    const {token, setToken}=useContext(AppContext)
+    // const [logout, setLogout]=useState(false)
+    // const logout = () => {
+    //   setToken(false);
+    //   localStorage.removeItem('token');
+    //   navigate('/login'); // redirect after logout
+    // };
+    // const handleLogout = () => {
+    //     setLogout(true);
+    //     setToken(false);
+    //   };
   return (
   <>
    <div className='container flex flex-row justify-between pl-16 pr-16'>
@@ -27,15 +31,26 @@ const Navabr = () => {
       <Link to='/about' className='text-customPurple rounded-md drop-shadow-[3px_3px_0px_rgba(0,0,0,0.2)] m-7 text-lg'>About</Link>
 
       {
-    token ? (
-        location.pathname === '/profile' ? (
-            <div onClick={handleLogout} className='text-customPurple rounded-md drop-shadow-[3px_3px_0px_rgba(0,0,0,0.2)] m-7 text-lg'><Link to='/login'>Logout</Link></div>
-        ) : (
-            <div><Link to='/profile'><img src={profileImg} className='w-16 h-16 p-2 mt-2 ml-4'></img></Link></div>)
-    ) : (
-        <button onClick={() => navigate('/login')}
-            className='text-customPurple rounded-md drop-shadow-[3px_3px_0px_rgba(0,0,0,0.2)] m-7 text-lg'>Login</button>
-    )
+  token ? (
+    <>
+      <Link to="/profile">
+        <img src={profileImg} className="w-16 h-16 p-2 mt-2 ml-4" />
+      </Link>
+      {/* <button
+        onClick={logout}
+        className="text-customPurple rounded-md drop-shadow-[3px_3px_0px_rgba(0,0,0,0.2)] m-7 text-lg"
+      >
+        Logout
+      </button> */}
+    </>
+  ) : (
+    <button
+      onClick={() => navigate('/signup')}
+      className="text-customPurple rounded-md drop-shadow-[3px_3px_0px_rgba(0,0,0,0.2)] m-7 text-lg cursor-pointer"
+    >
+      Create Account
+    </button>
+  )
 }
       </div>
     </div>

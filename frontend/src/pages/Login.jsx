@@ -1,20 +1,35 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-
+import { AppContext } from '../context/AppContext'
+import axios from 'axios'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 const Login = () => {
+  const {backendUrl, token, setToken}=useContext(AppContext)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
 
-  const handleLogin = (e) => {
+  const handleLogin = async(e) => {
     e.preventDefault()
     // Add login logic here
+    try {
+      const {data}=await axios.post(backendUrl+'/api/user/login', {email, password})
+      if(data.success){
+        localStorage.setItem('token', data.token)
+        setToken(data.token)
+      }else{
+        toast.error(data.message)
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }
     console.log({ email, password })
     navigate('/') // or wherever
   }
 
   return (
-    <div className='flex justify-center items-center min-h-screen'>
+    <div className='flex justify-center items-center min-h-screen m-12'>
       <form onSubmit={handleLogin} className='border-2 border-gray-400 rounded-lg shadow-md p-8 w-full max-w-md bg-white'>
         <h2 className='text-2xl font-semibold text-center text-violet-900 mb-6'>Login</h2>
 
