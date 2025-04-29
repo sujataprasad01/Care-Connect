@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { AppContext } from '../context/AppContext' // 👈 Access global doctors data here
-import { toast } from 'react-toastify'; 
+import { toast } from 'react-toastify';
+import axios from 'axios'
 const Appointment = () => {
   const { token } = useContext(AppContext);
-  const { doctors } = useContext(AppContext) // 👈 Use context instead of importing doctors
+  const { doctors, backendUrl, getDoctorsData } = useContext(AppContext) // 👈 Use context instead of importing doctors
   const { docId } = useParams()
   const [docInfo, setDocInfo] = useState(null)
 
@@ -41,6 +42,17 @@ const Appointment = () => {
           minute: '2-digit'
         })
 
+// let day=currentDate.getDate()
+// let month=currentDate.getMonth()+1
+// let year=currentDate.getFullYear()
+
+// const slotDate=day+"_"+month+"_"+year
+// const slotTime=formattedTime
+
+// const isSlotAvailable=docInfo.slots_booked[slotDate] && docInfo.slots_booked[slotDate].includes(slotTime) ? false:true
+// if(isSlotAvailable){
+  
+// }
         timeSlots.push({
           datetime: new Date(currentDate),
           time: formattedTime
@@ -52,6 +64,38 @@ const Appointment = () => {
     }
 
     setDocSlots(slotsPerDay)
+  }
+
+  const bookAppointment = async () => {
+    if (!token) {
+      toast.warn("Login to book appointment")
+      return navigate('/login')
+    }
+    try {
+      const date = docSlots[slotIndex][0].datetime
+      let day = date.getDate()
+      let month = date.getMonth() + 1
+      let year = date.getFullYear()
+
+      const slotDate = day + "_" + month + "_" + year
+      console.log(slotDate)
+
+      // api call
+
+      const { data } = await axios.post(backendUrl + '/api/user/book-appointment', { docId, slotDate, slotTime }, { headers: { token } })
+      if (data.success) {
+        toast.success(data.message)
+        getDoctorsData()
+        navigate('/my-appointment')
+      } else {
+        toast.error(data.message)
+      }
+
+
+    } catch (error) {
+        console.log(error)
+        toast.error(error.message)
+    }
   }
 
   useEffect(() => {
@@ -111,15 +155,17 @@ const Appointment = () => {
         </div>
 
         <button
-          onClick={() => {
-            if (!token) {
-              toast.error("Please sign up first to book an appointment!");
-              navigate('/signup')
-            } else {
-              navigate('/payment')
-            }
-          }}
-          
+          onClick={bookAppointment
+            //   () => {
+            //   if (!token) {
+            //     toast.error("Please sign up first to book an appointment!");
+            //     navigate('/signup')
+            //   } else {
+            //     navigate('/payment')
+            //   }
+            // }
+          }
+
           className="px-4 py-1 border rounded text-sm cursor-pointer hover:bg-gray-100 transition"
         >
           Book an Appointment

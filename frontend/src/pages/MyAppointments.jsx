@@ -1,9 +1,41 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { AppContext } from '../context/AppContext'
+import { toast } from 'react-toastify';
+import axios from 'axios'
 
 const MyAppointments = () => {
-  const { doctors } = useContext(AppContext)
-
+  const { doctors, getDoctorsData , backendUrl, token } = useContext(AppContext)
+  const [appointment, setAppointment]=useState([])
+const getUserAppointments=async()=>{
+  try {
+    const {data}=await axios.get(backendUrl+'/api/user/appointments', {headers:{token}})
+    if(data.success){
+      setAppointment(data.appointment.reverse())
+      console.log(data.appointment)
+    }
+  } catch (error) {
+    console.log(error);
+    toast.error(error.message)
+  }
+}
+  const cancelAppointment=async(appointmentId)=>{
+    try {
+      const {data} = await axios.post(backendUrl + '/api/user/cancel-appointment', 
+        { appointmentId }, 
+        { headers: { token } }   // ✅ Correct
+      )      
+      if(data.success){
+     toast.success(data.message)
+     getUserAppointments()
+     getDoctorsData()
+      }else{
+        toast.error(data.message)
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message)
+    }
+  }
   return (
     <div className="p-4">
       <h2 className="text-xl font-semibold mb-4">My Appointments</h2>
@@ -33,12 +65,13 @@ const MyAppointments = () => {
 
           {/* Buttons */}
           <div className="flex gap-2 mt-2 md:mt-0">
-            <button className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 text-sm">
+          {!item.cancelled && <button className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 text-sm">
               Pay Online
-            </button>
-            <button className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm">
+            </button>}
+            {!item.cancelled && <button onClick={()=>cancelAppointment(item._id)} className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm">
               Cancel
-            </button>
+            </button>}
+            {item.cancelled && <button className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm">Appointment Cancelled</button>}
           </div>
         </div>
       ))}

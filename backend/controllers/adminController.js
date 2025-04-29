@@ -7,13 +7,33 @@ import jwt from 'jsonwebtoken'
 // Api for adding doctor
 const addDoctor = async (req, res) => {
     try {
-        const { name, email, password, speciality, degree, experience, about, fees, address } = req.body;
+        const {
+            name,
+            email,
+            password,
+            speciality,
+            degree,
+            experience,
+            about,
+            available,
+            fees,
+            date,
+          } = req.body;
+          
+          const address = {
+            line1: req.body['address[line1]'] || '',
+            line2: req.body['address[line2]'] || ''
+          };
+          
         const imageFile = req.file;
 
+        if (!imageFile) {
+            return res.json({ success: false, message: "Image file is missing" });
+        }
         console.log({ name, email, password, speciality, degree, experience, about, fees, address }, imageFile);
 
         // checking for all data to add doctor
-        if (!name || !email || !password || !speciality || !degree || !about || !fees || !address) {
+        if (!name || !email || !password || !speciality || !degree || !about || !fees) {
             return res.json({ success: false, message: "Missing Details" });
         }
 
@@ -52,7 +72,7 @@ const addDoctor = async (req, res) => {
             degree,
             experience,
             about,
-            fees,
+            fees: Number(fees),
             address: parsedAddress,  // Use parsed address here
             date: Date.now(),
         };
@@ -79,7 +99,7 @@ const loginAdmin = (req, res) => {
                 const token=jwt.sign(email+password, process.env.JWT_SECRET)
                 res.json({success:true, token})
             }else{
-                req.json({success:false, message:"Invalid Credentials"})
+                res.json({success:false, message:"Invalid Credentials"})
             }
     } catch (error) {
         console.log(error)

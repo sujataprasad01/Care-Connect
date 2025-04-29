@@ -41,7 +41,7 @@ const getDoctorsData=async()=>{
 }
 
 const value={
-    doctors,
+    doctors, getDoctorsData,
     token, setToken,
     backendUrl, userData, setUserData, loadUserProfileData
 }
