@@ -19,6 +19,9 @@ import Derma from './components/Derma'
 
 import {ToastContainer, toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import DietRecommendation from './pages/DietRecommendation'
+import SymptomChecker from './pages/SymptomChecker'
+import NearestHospital from './pages/NearestHospital'
 export const AppContext=createContext()
 
 const App = () => {
@@ -43,6 +46,9 @@ const App = () => {
         <Route path='/neurological' element={<Neuro></Neuro>}></Route>
         <Route path='/generalphysician' element={<General></General>}></Route>
         <Route path='/appointment/:docId' element={<Appointment></Appointment>}></Route>
+        <Route path='/diet' element={<DietRecommendation></DietRecommendation>}></Route>
+        <Route path='/symptom' element={<SymptomChecker></SymptomChecker>}></Route>
+        <Route path='/hospital' element={<NearestHospital></NearestHospital>}></Route>
       </Routes>
     </div>
       <Footer></Footer>

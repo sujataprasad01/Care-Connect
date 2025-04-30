@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AppContext } from '../context/AppContext' // Update the path as per your folder structure
 
-const TopDoctors = () => {
+const TopDoctors = ({ hideMore = false }) => {
   const navigate = useNavigate();
   const { doctors } = useContext(AppContext);
 
@@ -34,14 +34,17 @@ const TopDoctors = () => {
         </div>
       )}
 
-      <div className="mt-6 text-center">
-        <button
-          onClick={() => navigate('/doctors')}
-          className="px-4 py-1 border rounded text-sm cursor-pointer hover:bg-gray-100 transition"
-        >
-          More
-        </button>
-      </div>
+{!hideMore && (
+  <div className="mt-6 text-center">
+    <button
+      onClick={() => navigate('/doctors')}
+      className="px-4 py-1 border rounded text-sm cursor-pointer hover:bg-gray-100 transition"
+    >
+      More
+    </button>
+  </div>
+)}
+
     </div>
   )
 }
