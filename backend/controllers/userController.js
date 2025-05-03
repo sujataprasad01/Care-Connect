@@ -7,6 +7,8 @@ import { v2 as cloudinary } from 'cloudinary'
 import appointmentModel from '../models/AppointementModel.js'
 import doctorModel from '../models/doctorModel.js'
 import razorpay from 'razorpay';
+import dotenv from 'dotenv';
+dotenv.config();
 // Api to register user
 const registerUser = async (req, res) => {
     try {
