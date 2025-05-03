@@ -53,7 +53,7 @@ const NearestHospital = () => {
 
     if (!window.google) {
       const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places`;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyA2JAhsXol2sVgU_ARRPi36Qqk8sc_MHLM&libraries=places`;
       script.async = true;
       script.defer = true;
       script.onload = loadMap;
@@ -64,7 +64,7 @@ const NearestHospital = () => {
   }, []);
 
   return (
-    <div className="p-6 max-w-5xl mx-auto mt-10">
+    <div className="p-6 max-w-5xl mx-auto mt-10 mb-22">
       <h2 className="text-2xl font-semibold mb-4 text-center">Find Nearest Hospitals</h2>
       <div ref={mapRef} className="h-[500px] rounded shadow border" />
     </div>

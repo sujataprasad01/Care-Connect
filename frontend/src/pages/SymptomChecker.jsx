@@ -32,7 +32,7 @@ const SymptomChecker = () => {
   };
 
   return (
-    <div className="max-w-xl mx-auto p-6 mt-10 shadow rounded bg-white">
+    <div className="max-w-xl mx-auto p-6 mb-24 mt-10 shadow rounded bg-white">
       <h2 className="text-2xl font-semibold mb-4 text-center">Symptom Checker</h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">

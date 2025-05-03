@@ -115,7 +115,7 @@ const Appointment = () => {
   return docInfo && (
     <div className='mx-2 sm:mx-[5%] mb-20'>
       <div className='flex flex-row-reverse justify-center'>
-        <div className='w-86 h-64'>
+        <div className='w-56 h-56 rounded-lg overflow-hidden shadow-md'>
           <img src={docInfo.image} alt={docInfo.name} className='w-full h-full object-cover' />
         </div>
         <div className='justify-center border-2 mt-8 border-gray-300 rounded-lg p-7 shadow-md w-full h-36 sm:h-40'>
