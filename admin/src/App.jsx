@@ -10,9 +10,17 @@ import AllAointments from './pages/Admin/AllAointments';
 import AddDoctor from './pages/Admin/AddDoctor';
 import DoctorsList from './pages/Admin/DoctorsList';
 import Sidebar from './components/Sidebar';
+import AdminProfile from './components/AdminProfile';
+const dummyAdmin = {
+  name: 'Sujata Prasad',
+  email: 'admin@example.com',
+  image: 'https://via.placeholder.com/150', // Or your base64 string
+  totalUsers: 245,
+  reportsHandled: 73,
+};
 const App = () => {
   const {aToken}=useContext(AdminContext)
-
+  
   return aToken ?(
     <div className='mx-2 sm:mx-[5%] bg-purple-100'>
       <ToastContainer></ToastContainer>
@@ -22,11 +30,12 @@ const App = () => {
       {/* <AddDoctor></AddDoctor> */}
       
       <Routes>
-        <Route path='/' element={<></>}></Route>
+        <Route path='/' element={<Dashboard></Dashboard>}></Route>
         <Route path='/admin-dashboard' element={<Dashboard></Dashboard>}></Route>
         <Route path='/all-appointments' element={<AllAointments></AllAointments>}></Route>
         <Route path='/add-doctor' element={<AddDoctor></AddDoctor>}></Route>
         <Route path='/doctors-list' element={<DoctorsList></DoctorsList>}></Route>
+        <Route path='/profile' element={<AdminProfile admin={dummyAdmin} />} />
       </Routes>
     </div>
     </div>
