@@ -14,7 +14,7 @@ const Sidebar = () => {
       {aToken && (
         <ul className="space-y-4">
           <NavLink
-            to="/dashboard"
+            to="/admin-dashboard"
             className={({isActive})=>`${isActive?'bg-violet-300 border-r-4':''} flex items-center gap-4 p-2 rounded-lg hover:bg-violet-300 transition-colors`}
           >
             <img src={dashboard} alt="Dashboard" className="w-6 h-6" />
@@ -22,7 +22,7 @@ const Sidebar = () => {
           </NavLink>
 
           <NavLink
-            to="/appointments"
+            to="/all-appointments"
             className={({isActive})=>`${isActive?'bg-violet-400 border-r-4':''} flex items-center gap-4 p-2 rounded-lg hover:bg-violet-300 transition-colors`}
           >
             <img src={appointment} alt="Appointment" className="w-6 h-6" />

@@ -1,13 +1,15 @@
 import mongoose from "mongoose"
 const appointmentSchema=new mongoose.Schema({
-    userId:{
-        type:String, 
-        required:true
-    },
-    docId:{
-        type:String,
-        required:true
-    },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user',  // or 'User' depending on your model name
+        required: true
+      },
+      docId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'doctor',  // or 'Doctor' depending on your model name
+        required: true
+      },
     slotTime:{
         type:String,
         required:true

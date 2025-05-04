@@ -1,7 +1,7 @@
 
 import validator from "validator"
 import bcrypt from "bcryptjs";
-
+import appointmentModel from "../models/AppointementModel.js";
 import { v2 as cloudinary } from 'cloudinary'
 import doctorModel from "../models/doctorModel.js"
 import jwt from 'jsonwebtoken'
@@ -89,6 +89,18 @@ const addDoctor = async (req, res) => {
     }
 };
 
+const allAppointments = async (req, res) => {
+    try {
+        const appointments = await appointmentModel.find()
+            .populate('userId', 'name email')
+            .populate('docId', 'name email speciality');
+        
+        res.json({ success: true, appointments });
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: error.message });
+    }
+};
 
 // api for the admin login
 const loginAdmin = (req, res) => {
@@ -118,4 +130,4 @@ const allDoctors=async(req,res)=>{
         res.json({success:false, message:error.message})
     }
 }
-export { addDoctor, loginAdmin, allDoctors }
+export { addDoctor, loginAdmin, allDoctors, allAppointments }
